@@ -2,8 +2,10 @@ import React from "react";
 import {InfoBox, PhotoUsers} from "./ProfileInfoStyled";
 import UsersPhoto from "../../../../../assets/userphoto.png";
 import Preloader from "../../../../common/Preloader/Preloader";
+// import {Redirect} from "react-router-dom";
 
 const ProfileInfo = props => {
+    // if(!props.isAuth){return <Redirect to={"/login"}/>}
     if (!props.profile) {
         return <Preloader/>;
     }

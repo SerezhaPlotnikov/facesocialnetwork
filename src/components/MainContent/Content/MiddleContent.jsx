@@ -5,6 +5,7 @@ import Message from "./Message/Message";
 import News from "./News/News";
 import {Route, Switch} from "react-router-dom";
 import Users from "./Users/Users";
+import LogContainer from "../../Header/Navbar/Login/LoginContainer";
 
 const MiddleContent = props => {
   return (
@@ -21,6 +22,9 @@ const MiddleContent = props => {
           </Route>
           <Route path="/message">
             <Message/>
+          </Route>
+          <Route path="/login">
+            <LogContainer/>
           </Route>
         </Switch>
     </Content>

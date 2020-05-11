@@ -1,32 +1,29 @@
 import ProfileInfo from "./Info/ProfileInfo";
-import {connect} from "react-redux";
-import {setIsFetching, setUsersProfile} from "../../../../redux/profile_reducer";
-import {withRouter} from "react-router-dom";
-import React, {Component} from "react";
-import * as axios from "axios";
+import { connect } from "react-redux";
+import { getProfile } from "../../../../redux/profile_reducer";
+import { withRouter } from "react-router-dom";
+import React, { Component } from "react";
+import { compose } from "redux";
+import { withAuthRedirect } from "../../../../hoc/AuthHoc";
 
 class ProfileInfoContainer extends Component {
-    componentDidMount() {
-        let userId = this.props.match.params.userId;
-        if (!userId) {
-            userId = 7540;
-        }
-        axios
-            .get("https://social-network.samuraijs.com/api/1.0/profile/" + userId)
-            .then(response => {
-                this.props.setIsFetching(false);
-                this.props.setUsersProfile(response.data);
-            });
+  componentDidMount() {
+    let userId = this.props.match.params.userId;
+    if (!userId) {
+      userId = 7540;
     }
+    this.props.getProfile(userId);
+  }
 
-    render() {
-        return <ProfileInfo {...this.props} />;
-    }
+  render() {
+    return <ProfileInfo {...this.props} />;
+  }
 }
+
 let mapStateToProps = state => {
   return {
     profile: state.profile.profile,
-      isFetching: state.profile.isFetching
+    isFetching: state.profile.isFetching,
   };
 };
 
@@ -52,9 +49,16 @@ let mapStateToProps = state => {
 //     }
 //   };
 // };
+export default compose(
+  connect(mapStateToProps, {
+    getProfile
+  }),
+  withRouter,
+  withAuthRedirect
+)(ProfileInfoContainer);
 
-let WithProfileInfo = withRouter(ProfileInfoContainer);
-export default connect(mapStateToProps, {
-    setUsersProfile,
-    setIsFetching
-})(WithProfileInfo);
+// let AuthRedirectComponent = withAuthRedirect(ProfileInfoContainer);
+// let WithProfileInfo = withRouter(AuthRedirectComponent);
+// export default connect(mapStateToProps, {
+//   getProfile
+// })(WithProfileInfo);

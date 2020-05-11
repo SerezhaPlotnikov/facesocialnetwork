@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import Login from "./Login";
-import {serUserData} from "../../../../redux/login_reducer";
+import {setUserData} from "../../../../redux/login_reducer";
 import * as axios from "axios"
 
 class LogContainer extends Component {
@@ -13,12 +13,13 @@ class LogContainer extends Component {
         .then(response => {
           if (response.data.resultCode === 0) {
             let {userId, email, login} = response.data.data;
-            this.props.serUserData(userId, email, login)
+            this.props.setUserData(userId, email, login)
           }
         });
   }
 
   render() {
+    if(!this.props.isAuth){return <div>Login</div>}
     return <Login {...this.props} />;
   }
 }
@@ -29,4 +30,4 @@ let mapStateToProps = state => {
     isAuth: state.auth.isAuth
   };
 };
-export default connect(mapStateToProps, {serUserData})(LogContainer);
+export default connect(mapStateToProps, {setUserData})(LogContainer);

@@ -1,6 +1,6 @@
 import "./index.css";
 import "./index.css";
-import App from "./components/App";
+import App from "./App";
 
 //React
 import React from "react";

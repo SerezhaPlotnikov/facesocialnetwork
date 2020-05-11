@@ -1,3 +1,5 @@
+import { userAPI } from "../api/api";
+
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
 const SET_USERS = "SET-USERS";
@@ -79,6 +81,38 @@ export let setIsFetching = isFetching => {
 };
 export let setIsFollowing = (isFetching, userId) => {
   return { type: TOOGLE_IS_FOLLOWING, isFetching, userId };
+};
+
+export const getUsers = (page, count) => {
+  return dispatch => {
+    dispatch(setIsFetching(true));
+    userAPI.getUsers(page, count).then(response => {
+      dispatch(setIsFetching(false));
+      dispatch(setUsers(response.items));
+      dispatch(setTotalCount(response.totalCount));
+    });
+  };
+};
+export const Unfollow = userId => {
+  return dispatch => {
+    dispatch(setIsFollowing(true, userId));
+    userAPI.getUnfollow(userId).then(response => {
+      if (response.resultCode === 0) {
+        dispatch(unfollow(userId));
+      }
+      dispatch(setIsFollowing(false, userId));
+    });
+  };
+};export const Follow = userId => {
+  return dispatch => {
+    dispatch(setIsFollowing(true, userId));
+    userAPI.getFollow(userId).then(response => {
+      if (response.resultCode === 0) {
+        dispatch(follow(userId));
+      }
+      dispatch(setIsFollowing(false, userId));
+    });
+  };
 };
 
 export default usersReducer;

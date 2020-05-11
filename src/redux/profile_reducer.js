@@ -1,3 +1,5 @@
+import { profileAPI } from "../api/api";
+
 const SET_USERS_PROFILE = "SET_USERS_PROFILE";
 const TOOGLE_IS_FETCHING = "TOOGLE_IS_FETCHING";
 
@@ -21,6 +23,13 @@ export let setUsersProfile = profile => {
 };
 export let setIsFetching = isFetching => {
   return { type: TOOGLE_IS_FETCHING, isFetching };
+};
+
+export const getProfile = userId => dispatch => {
+  profileAPI.getUsersProfile(userId).then(response => {
+    dispatch(setIsFetching(false));
+    dispatch(setUsersProfile(response.data));
+  });
 };
 
 export default profileReducer;
