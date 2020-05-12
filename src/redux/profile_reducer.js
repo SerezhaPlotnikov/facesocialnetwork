@@ -2,10 +2,12 @@ import { profileAPI } from "../api/api";
 
 const SET_USERS_PROFILE = "SET_USERS_PROFILE";
 const TOOGLE_IS_FETCHING = "TOOGLE_IS_FETCHING";
+const SET_STATUS = "SET_STATUS";
 
 let initial = {
   profile: null,
-  isFetching: true
+  isFetching: true,
+  status: "Add status"
 };
 const profileReducer = (state = initial, action) => {
   switch (action.type) {
@@ -13,6 +15,8 @@ const profileReducer = (state = initial, action) => {
       return { ...state, profile: action.profile };
     case TOOGLE_IS_FETCHING:
       return { ...state, isFetching: action.isFetching };
+    case SET_STATUS:
+      return { ...state, status: action.status };
     default:
       return state;
   }
@@ -24,6 +28,9 @@ export let setUsersProfile = profile => {
 export let setIsFetching = isFetching => {
   return { type: TOOGLE_IS_FETCHING, isFetching };
 };
+export let setStatus = status => {
+  return { type: SET_STATUS, status };
+};
 
 export const getProfile = userId => dispatch => {
   profileAPI.getUsersProfile(userId).then(response => {
@@ -31,5 +38,9 @@ export const getProfile = userId => dispatch => {
     dispatch(setUsersProfile(response.data));
   });
 };
-
+export const getStatus = userId => dispatch => {
+  profileAPI.getStatus(userId).then(response => {
+    dispatch(setStatus(response.data))
+  })
+};
 export default profileReducer;

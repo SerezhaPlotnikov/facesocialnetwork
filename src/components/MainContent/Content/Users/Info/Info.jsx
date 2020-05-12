@@ -1,8 +1,8 @@
-import React  from "react";
-import { InfoBox, InfoButton, PhotoUsers } from "./InfoStyled";
+import React from "react";
+import {InfoBox, InfoButton, PhotoUsers} from "./InfoStyled";
 import UsersPhoto from "../../../../../assets/userphoto.png";
 import Preloader from "../../../../common/Preloader/Preloader";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 
 const Info = props => {
   if (props.users.length === 0) {
