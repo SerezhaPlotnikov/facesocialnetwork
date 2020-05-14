@@ -1,22 +1,24 @@
 import ProfileInfo from "./Info/ProfileInfo";
 import { connect } from "react-redux";
-import {getProfile, getStatus} from "../../../../redux/profile_reducer";
+import {
+  getProfile,
+  getStatus,
+  updateStatus
+} from "../../../../redux/profile_reducer";
 import { withRouter } from "react-router-dom";
-import React, {useEffect} from "react";
+import React from "react";
 import { compose } from "redux";
 import { withAuthRedirect } from "../../../../hoc/AuthHoc";
 
-let ProfileInfoContainer = (props) => {
-  useEffect(() => {
-    let userId = props.match.params.userId;
-    if (!userId) {
-      userId = 7540;
-    }
-    props.getProfile(userId);
-    props.getStatus(userId);
-  }, [props]);
+let ProfileInfoContainer = props => {
+  let userId = props.match.params.userId;
+  if(!userId){
+    userId = 7540
+  }
+  props.getProfile(userId); //думаю что пробелма тут!
+  props.getStatus(userId);  //думаю что пробелма тут!
 
-  return <ProfileInfo {...props} />
+  return <ProfileInfo {...props} />;
 };
 
 // class ProfileInfoContainer extends Component {
@@ -37,7 +39,7 @@ let mapStateToProps = state => {
   return {
     profile: state.profile.profile,
     isFetching: state.profile.isFetching,
-    status: state.profile.status
+    status: state.profile.status,
   };
 };
 
@@ -66,7 +68,8 @@ let mapStateToProps = state => {
 export default compose(
   connect(mapStateToProps, {
     getProfile,
-    getStatus
+    getStatus,
+    updateStatus
   }),
   withRouter,
   withAuthRedirect

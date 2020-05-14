@@ -7,7 +7,7 @@ import {Route, Switch} from "react-router-dom";
 import Users from "./Users/Users";
 import LogContainer from "../../Header/Navbar/Login/LoginContainer";
 
-const MiddleContent = props => {
+const MiddleContent = () => {
   return (
       <Content>
         <Switch>

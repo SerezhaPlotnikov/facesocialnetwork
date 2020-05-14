@@ -3,7 +3,7 @@ import {MapPost, NewsContent} from "./InputPostStyled";
 
 const InputPost = props => {
   let AddMapPost = props.posts.map(m => (
-    <MapPost>
+    <MapPost key={m.id}>
       {m.id}
       {m.message}
     </MapPost>

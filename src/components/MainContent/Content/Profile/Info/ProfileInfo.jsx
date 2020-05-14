@@ -9,8 +9,12 @@ const ProfileInfo = props => {
   const [status, setStatus] = useState(props.status);
   const [editMode, setEditMode] = useState(false);
   useEffect(() => setStatus(props.status), [props.status]);
-  let onStatusChange = (e) => {
-      setStatus(e.target.value)
+  let updateStatusFunc = () => {
+    setEditMode(false);
+    props.updateStatus(status);
+  };
+  let onStatusChange = e => {
+    setStatus(e.target.value);
   };
   if (!props.profile) {
     return <Preloader />;
@@ -29,12 +33,14 @@ const ProfileInfo = props => {
       </div>
       <div>
         {!editMode ? (
-          <div onDoubleClick={() => setEditMode(true)}>{status || "Add status"}</div>
+          <div onDoubleClick={() => setEditMode(true)}>
+            {status || "Add status"}
+          </div>
         ) : (
           <div>
             <input
               autoFocus={true}
-              onBlur={() => setEditMode(false)}
+              onBlur={updateStatusFunc}
               onChange={onStatusChange}
               value={status}
             />

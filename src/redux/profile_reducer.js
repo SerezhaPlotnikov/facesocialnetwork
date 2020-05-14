@@ -7,7 +7,7 @@ const SET_STATUS = "SET_STATUS";
 let initial = {
   profile: null,
   isFetching: true,
-  status: "Add status"
+  status: ""
 };
 const profileReducer = (state = initial, action) => {
   switch (action.type) {
@@ -40,7 +40,14 @@ export const getProfile = userId => dispatch => {
 };
 export const getStatus = userId => dispatch => {
   profileAPI.getStatus(userId).then(response => {
-    dispatch(setStatus(response.data))
-  })
+    dispatch(setStatus(response.data));
+  });
+};
+export const updateStatus = status => dispatch => {
+  profileAPI.updateStatus(status).then(response => {
+    if (response.data.resultCode === 0) {
+      dispatch(setStatus(status));
+    }
+  });
 };
 export default profileReducer;

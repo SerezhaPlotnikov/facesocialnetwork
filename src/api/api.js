@@ -23,17 +23,25 @@ export const userAPI = {
       {
         withCredentials: true,
         headers: {
-          "API-KEY": "4870c220-affc-4d36-b1b2-8cbd7701626f"
+          "API-KEY": "b646a86b-c429-4f08-bf83-c5463944ba71"
         }
       }
     );
   }
 };
 export const profileAPI = {
-  getUsersProfile(userId){
-    return instance.get("profile/" + userId)
+  getUsersProfile(userId) {
+    return instance.get("profile/" + userId);
   },
-  getStatus(userId){
-    return instance.get("profile/status/" + userId)
+  getStatus(userId) {
+    return instance.get("profile/status/" + userId);
+  },
+  updateStatus(status) {
+    return instance.put("profile/status", { status });
+  }
+};
+export const AuthAPI = {
+  getAuth(){
+    return instance.get(`auth/me`)
   }
 };

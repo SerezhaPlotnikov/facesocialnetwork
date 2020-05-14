@@ -1,8 +1,8 @@
 import React from "react";
-import {InfoBox, InfoButton, PhotoUsers} from "./InfoStyled";
+import { InfoBox, InfoButton, PhotoUsers } from "./InfoStyled";
 import UsersPhoto from "../../../../../assets/userphoto.png";
 import Preloader from "../../../../common/Preloader/Preloader";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Info = props => {
   if (props.users.length === 0) {
@@ -16,8 +16,8 @@ const Info = props => {
   for (let i = 1; i <= pageCount; i++) {
     pages.push(i);
   }
-  let usersBox = props.users.map(u => (
-    <InfoBox>
+  let usersBox = props.users.map((u, ind) => (
+    <InfoBox key={ind}>
       <Link to={"/profile/" + u.id}>
         <PhotoUsers
           src={u.photos.small != null ? u.photos.small : UsersPhoto}
@@ -54,8 +54,8 @@ const Info = props => {
   return (
     <InfoBox>
       <InfoBox>{props.isFetching ? <Preloader /> : null}</InfoBox>
-      {pages.map(p => {
-        return <div onClick={() => onChangePage(p)}>{p}</div>;
+      {pages.map((p, ind) => {
+        return <div key={ind} onClick={() => onChangePage(p)}>{p}</div>;
       })}
       <InfoBox>{usersBox}</InfoBox>
     </InfoBox>

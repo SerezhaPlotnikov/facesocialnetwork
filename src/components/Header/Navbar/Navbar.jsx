@@ -27,7 +27,6 @@ const Navbar = () => {
             </Bar>
             <Bar>
                 {/*<example> */}
-                <Link to="/login">Login</Link>
                 <LoginContainer/>
             </Bar>
         </Navtop>

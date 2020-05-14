@@ -3,7 +3,7 @@ import Header from "./components/Header/Header";
 import MainContent from "./components/MainContent/MainContent";
 import AppContent from "./AppStyled";
 
-const App = props => {
+const App = () => {
   return (
     <AppContent>
       <Header />

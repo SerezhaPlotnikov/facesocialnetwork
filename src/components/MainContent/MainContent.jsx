@@ -3,7 +3,7 @@ import Global from "./MainContentStyled";
 
 import MiddleContent from "./Content/MiddleContent";
 
-const MainContent = props => {
+const MainContent = () => {
   return (
     <Global>
       <MiddleContent />
