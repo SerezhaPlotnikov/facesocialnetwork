@@ -9,17 +9,15 @@ import {
 import { withAuthRedirect } from "../../../../hoc/AuthHoc";
 import { compose } from "redux";
 
-let mapStateToProps = state => {
-  return {
-    users: state.users.users,
-    count: state.users.count,
-    totalCount: state.users.totalCount,
-    page: state.users.page,
-    isFetching: state.users.isFetching,
-    isFollowing: state.users.isFollowing,
-    isAuth: state.auth.isAuth
-  };
-};
+let mapStateToProps = state => ({
+  users: state.users.users,
+  count: state.users.count,
+  totalCount: state.users.totalCount,
+  page: state.users.page,
+  isFetching: state.users.isFetching,
+  isFollowing: state.users.isFollowing,
+  isAuth: state.auth.isAuth
+});
 
 // let mapDispatchToProps = dispatch => {
 //   return {

@@ -93,26 +93,23 @@ export const getUsers = (page, count) => {
     });
   };
 };
-export const Unfollow = userId => {
-  return dispatch => {
-    dispatch(setIsFollowing(true, userId));
-    userAPI.getUnfollow(userId).then(response => {
-      if (response.resultCode === 0) {
-        dispatch(unfollow(userId));
-      }
-      dispatch(setIsFollowing(false, userId));
-    });
-  };
-};export const Follow = userId => {
-  return dispatch => {
-    dispatch(setIsFollowing(true, userId));
-    userAPI.getFollow(userId).then(response => {
-      if (response.resultCode === 0) {
-        dispatch(follow(userId));
-      }
-      dispatch(setIsFollowing(false, userId));
-    });
-  };
+export const Unfollow = userId => dispatch => {
+  dispatch(setIsFollowing(true, userId));
+  userAPI.getUnfollow(userId).then(response => {
+    if (response.resultCode === 0) {
+      dispatch(unfollow(userId));
+    }
+    dispatch(setIsFollowing(false, userId));
+  });
+};
+export const Follow = userId => dispatch => {
+  dispatch(setIsFollowing(true, userId));
+  userAPI.getFollow(userId).then(response => {
+    if (response.resultCode === 0) {
+      dispatch(follow(userId));
+    }
+    dispatch(setIsFollowing(false, userId));
+  });
 };
 
 export default usersReducer;

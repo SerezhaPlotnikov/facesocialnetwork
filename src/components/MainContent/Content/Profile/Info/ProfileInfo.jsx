@@ -11,7 +11,9 @@ const ProfileInfo = props => {
   useEffect(() => setStatus(props.status), [props.status]);
   let updateStatusFunc = () => {
     setEditMode(false);
-    props.updateStatus(status);
+    if (status !== props.status) {
+      props.updateStatus(status);
+    }
   };
   let onStatusChange = e => {
     setStatus(e.target.value);
@@ -34,7 +36,7 @@ const ProfileInfo = props => {
       <div>
         {!editMode ? (
           <div onDoubleClick={() => setEditMode(true)}>
-            {status || "Add status"}
+            {status !== null ? status : "Add status"}
           </div>
         ) : (
           <div>

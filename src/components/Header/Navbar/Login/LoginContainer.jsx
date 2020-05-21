@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import Login from "./Login";
-import { setAuth } from "../../../../redux/login_reducer";
+import {LogoutAuth, setAuth} from "../../../../redux/login_reducer";
 import { Link } from "react-router-dom";
 
 const LogContainer = props => {
+  // Запрос на сервер
   useEffect(() => props.setAuth(), [props]);
 
   if (!props.isAuth) {
@@ -19,4 +20,4 @@ let mapStateToProps = state => {
     isAuth: state.auth.isAuth
   };
 };
-export default connect(mapStateToProps, { setAuth })(LogContainer);
+export default connect(mapStateToProps, { setAuth, LogoutAuth })(LogContainer);

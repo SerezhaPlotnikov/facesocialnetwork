@@ -6,7 +6,7 @@ import {
   updateStatus
 } from "../../../../redux/profile_reducer";
 import { withRouter } from "react-router-dom";
-import React from "react";
+import React, {useEffect} from "react";
 import { compose } from "redux";
 import { withAuthRedirect } from "../../../../hoc/AuthHoc";
 
@@ -15,8 +15,10 @@ let ProfileInfoContainer = props => {
   if(!userId){
     userId = 7540
   }
-  props.getProfile(userId); //думаю что пробелма тут!
-  props.getStatus(userId);  //думаю что пробелма тут!
+  useEffect(()=> props.getProfile(userId), [userId]);
+  useEffect(()=> props.getStatus(userId), [userId]);
+  // props.getProfile(userId); //думаю что пробелма тут!
+  // props.getStatus(userId);  //думаю что пробелма тут!
 
   return <ProfileInfo {...props} />;
 };

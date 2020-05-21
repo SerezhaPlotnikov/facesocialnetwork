@@ -1,3 +1,6 @@
+import {authAPI} from "../api/api";
+import {setStatus} from "./profile_reducer";
+
 const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT";
 const ADD_MESSAGE = "ADD-MESSAGE";
 
@@ -25,11 +28,17 @@ const dialogsReducer = (state = initial, action) => {
   }
 };
 
-export let addMessage = () => {
-  return { type: ADD_MESSAGE };
+export let addMessage = (message) => {
+  return { type: ADD_MESSAGE, message };
 };
 export let updateNewMessageText = text => {
   return { type: UPDATE_NEW_MESSAGE_TEXT, newMessage: text };
 };
 
+// export let MessageThunk = (formData) => dispatch => {
+//   MessegAPI.addMessage(formData).then(response => {
+//     if (response.data.resultCode === 0) {
+//       dispatch(addMessage());
+// };
+//
 export default dialogsReducer;

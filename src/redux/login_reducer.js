@@ -1,6 +1,7 @@
-import {AuthAPI} from "../api/api";
+import { authAPI } from "../api/api";
 
 const SET_USER_DATA = "SET_USER_DATA";
+
 let initial = {
   id: null,
   email: null,
@@ -10,21 +11,37 @@ let initial = {
 const authReducer = (state = initial, action) => {
   switch (action.type) {
     case SET_USER_DATA:
-      return { ...state, ...action.data, isAuth: true };
+      return { ...state, ...action.payload };
     default:
       return state;
   }
 };
-export let setUserData = (userId, email, login) => ({
+
+export let setUserData = (id, email, login, isAuth) => ({
   type: SET_USER_DATA,
-  data: { userId, email, login }
+  payload: { id, email, login, isAuth }
 });
 
+// Thunk делает запрос на сервер и передает данные id email login в state
 export const setAuth = () => dispatch => {
-  AuthAPI.getAuth().then(response => {
+  authAPI.getAuth().then(response => {
     if (response.data.resultCode === 0) {
-      let {userId, email, login} = response.data.data;
-      dispatch(setUserData(userId, email, login))
+      let { id, email, login } = response.data.data;
+      dispatch(setUserData(id, email, login, true));
+    }
+  });
+};
+export const LoginAuth = (email, password, rememberMe) => dispatch => {
+  authAPI.loginAuth(email, password, rememberMe).then(response => {
+    if (response.data.resultCode === 0) {
+      dispatch(setAuth());
+    }
+  });
+};
+export const LogoutAuth = () => dispatch => {
+  authAPI.logoutAuth().then(response => {
+    if (response.data.resultCode === 0) {
+      dispatch(setAuth(null, null, null, false));
     }
   });
 };

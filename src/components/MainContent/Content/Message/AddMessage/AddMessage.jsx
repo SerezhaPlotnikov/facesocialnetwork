@@ -1,31 +1,42 @@
 import React from "react";
-import {MessageContent, NewMess} from "./AddMessageStyled";
+import { Field, reduxForm } from "redux-form";
+import { MessageContent, NewMess } from "./AddMessageStyled";
 
 const AddMessage = props => {
-  let NewMessage = props.dialogs.map(m => <NewMess>{m.message}</NewMess>);
-  let AddMessageClick = () => {
-    props.addMessage();
-  };
-  let OnMessageChange = e => {
-    let text = e.target.value;
-    props.updateNewMessageText(text);
+  let NewMessage = props.dialogs.map((m, ind) => (
+    <NewMess key={ind}>{m.message}</NewMess>
+  ));
+  const onSubmit = (formData) => {
+    // MessageThunk(formData)
   };
   return (
     <MessageContent>
-      <div>
-        <form>
-          <input
-            onChange={OnMessageChange}
-            value={props.newMessageText}
-            type="text"
-            placeholder="New Message"
-          />
-          <input onClick={AddMessageClick} type="button" value="Add Post" />
-        </form>
-      </div>
+      <MessageReduxForm onSubmit={onSubmit} />
       <div>{NewMessage}</div>
     </MessageContent>
   );
 };
+
+const MessageInput = props => {
+  const { handleSubmit, pristine, submitting } = props;
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <Field
+          component={"input"}
+          type="text"
+          name={"message"}
+          placeholder="New Message"
+        />
+        <button disabled={pristine || submitting} type="button">
+          Add Post
+        </button>
+      </form>
+    </div>
+  );
+};
+const MessageReduxForm = reduxForm({
+  form: "message"
+})(MessageInput);
 
 export default AddMessage;

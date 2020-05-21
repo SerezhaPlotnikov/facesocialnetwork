@@ -1,11 +1,15 @@
 import React from "react";
-import {LogBox} from "./LoginStyled";
+import { LogBox } from "./LoginStyled";
 
-const Login = (props) => {
-    return (
-        <LogBox>
-            {props.email}
-        </LogBox>
-    )
+const LoginHeader = props => {
+    const LogoutFunc = () => {
+        props.LogoutAuth()
+    };
+  return (
+    <LogBox>
+      {props.email}
+      <button onClick={LogoutFunc}>Logout</button>
+    </LogBox>
+  );
 };
-export default Login
+export default LoginHeader;
