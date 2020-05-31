@@ -27,7 +27,7 @@ const LoginForm = (props) => {
 	);
 };
 
-let LoginReduxForm = reduxForm({
+const LoginReduxForm = reduxForm({
 	form: 'login',
 })(LoginForm);
 
@@ -42,5 +42,7 @@ const Login = (props) => {
 		</div>
 	);
 };
-
-export default connect(null, { LoginAuth, LogoutAuth })(Login);
+const mapDispathToProps = (state) => ({
+	isAuth: state.auth.isAuth,
+});
+export default connect(mapDispathToProps, { LoginAuth, LogoutAuth })(Login);

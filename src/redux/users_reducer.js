@@ -10,7 +10,7 @@ const TOOGLE_IS_FOLLOWING = 'TOOGLE_IS_FOLLOWING';
 
 let initial = {
 	users: [],
-	count: 5,
+	count: 10,
 	totalCount: 0,
 	page: 1,
 	isFetching: true,
@@ -96,6 +96,7 @@ export const Unfollow = (id) => async (dispatch) => {
 		dispatch(unfollow(id));
 	}
 	dispatch(setIsFollowing(false, id));
+	dispatch(getUsers());
 };
 export const Follow = (id) => async (dispatch) => {
 	dispatch(setIsFollowing(true, id));
@@ -104,6 +105,7 @@ export const Follow = (id) => async (dispatch) => {
 		dispatch(follow(id));
 	}
 	dispatch(setIsFollowing(false, id));
+	dispatch(getUsers());
 };
 
 export default usersReducer;

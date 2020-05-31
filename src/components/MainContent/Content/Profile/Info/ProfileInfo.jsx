@@ -2,15 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { InfoBox, PhotoUsers } from './ProfileInfoStyled';
 import UsersPhoto from '../../../../../assets/userphoto.png';
 import Preloader from '../../../../common/Preloader/Preloader';
-// import {Redirect} from "react-router-dom";
+import { Field, reduxForm } from 'redux-form';
 
-const ProfileInfo = (props) => {
-	// if(!props.isAuth){return <Redirect to={"/login"}/>}
+const Profile = (props) => {
+	const { profile, isOwner } = props;
 	const [status, setStatus] = useState(props.status);
-	const [editMode, setEditMode] = useState(false);
+	const [editStatus, setEditStatus] = useState(false);
+	const [editProfile, setEditProfile] = useState(false);
 	useEffect(() => setStatus(props.status), [props.status]);
 	let updateStatusFunc = () => {
-		setEditMode(false);
+		setEditStatus(false);
 		if (status !== props.status) {
 			props.updateStatus(status);
 		}
@@ -18,24 +19,24 @@ const ProfileInfo = (props) => {
 	let onStatusChange = (e) => {
 		setStatus(e.target.value);
 	};
-	if (!props.profile) {
+	const onSubmit = (formData) => {
+		console.log(formData);
+		// props.updateProfile(formData);
+	};
+	if (!profile) {
 		return <Preloader />;
 	}
 	return (
 		<InfoBox>
 			<div>
 				<PhotoUsers
-					src={
-						props.profile.photos.small != null
-							? props.profile.photos.small
-							: UsersPhoto
-					}
+					src={profile.photos.small != null ? profile.photos.small : UsersPhoto}
 					alt={UsersPhoto}
 				/>
 			</div>
 			<div>
-				{!editMode ? (
-					<div onDoubleClick={() => setEditMode(true)}>
+				{!editStatus ? (
+					<div onDoubleClick={() => setEditStatus(true)}>
 						{status !== null ? status : 'Add status'}
 					</div>
 				) : (
@@ -49,21 +50,71 @@ const ProfileInfo = (props) => {
 					</div>
 				)}
 			</div>
-			<div>{props.profile.aboutMe}</div>
-			<div>{props.profile.userId}</div>
-			<div>{props.profile.lookingForAJob}</div>
-			<div>{props.profile.lookingForAJobDescription}</div>
-			<div>{props.profile.fullName}</div>
-			<div>{props.profile.contacts.github}</div>
-			<div>{props.profile.contacts.vk}</div>
-			<div>{props.profile.contacts.facebook}</div>
-			<div>{props.profile.contacts.instagram}</div>
-			<div>{props.profile.contacts.twitter}</div>
-			<div>{props.profile.contacts.website}</div>
-			<div>{props.profile.contacts.youtube}</div>
-			<div>{props.profile.contacts.mainLink}</div>
+			{!isOwner && !editProfile ? (
+				<div>
+					<button onClick={() => setEditProfile(true)}>Edit Profile</button>
+					<UserInfo {...props} />
+				</div>
+			) : (
+				<EditProfileReduxForm onSubmit={onSubmit} />
+			)}
 		</InfoBox>
 	);
 };
 
-export default ProfileInfo;
+const UserInfo = (props) => {
+	const { profile } = props;
+	return (
+		<div>
+			<div>{profile.aboutMe}</div>
+			<div>{profile.userId}</div>
+			<div>{profile.lookingForAJob}</div>
+			<div>{profile.lookingForAJobDescription}</div>
+			<div>{profile.fullName}</div>
+			<div>{profile.contacts.github}</div>
+			<div>{profile.contacts.vk}</div>
+			<div>{profile.contacts.facebook}</div>
+			<div>{profile.contacts.instagram}</div>
+			<div>{profile.contacts.twitter}</div>
+			<div>{profile.contacts.website}</div>
+			<div>{profile.contacts.youtube}</div>
+			<div>{profile.contacts.mainLink}</div>
+		</div>
+	);
+};
+
+const ProfileEditer = (props) => {
+	const { handleSubmit } = props;
+	return (
+		<div>
+			<form onSubmit={handleSubmit}>
+				<Field
+					component='input'
+					name='fullName'
+					type='text'
+					placeholder='Full name'
+				/>
+				<Field component='input' name='lookingForAJob' type='checkbox' />
+				<Field
+					component='input'
+					name='lookingForAJobDescription'
+					type='text'
+					placeholder='lookingForAJobDescription name'
+				/>
+				<Field
+					component='input'
+					name='lookingForAJob'
+					type='text'
+					placeholder='Full name'
+				/>
+				<button>Update profile</button>
+			</form>
+		</div>
+	);
+};
+
+const EditProfileReduxForm = reduxForm({
+	form: 'updateProfile',
+})(ProfileEditer);
+
+export default Profile;

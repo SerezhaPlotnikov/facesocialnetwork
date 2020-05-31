@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import Login from './Login';
 import { LogoutAuth } from '../../../../redux/login_reducer';
 import { Link } from 'react-router-dom';
+import { compose } from 'redux';
+import { useEffect } from 'react';
 
 const LogContainer = (props) => {
 	if (!props.isAuth) {
@@ -17,4 +19,4 @@ let mapStateToProps = (state) => {
 		isAuth: state.auth.isAuth,
 	};
 };
-export default connect(mapStateToProps, { LogoutAuth })(LogContainer);
+export default compose(connect(mapStateToProps, { LogoutAuth }))(LogContainer);

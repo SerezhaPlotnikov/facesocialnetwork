@@ -1,4 +1,4 @@
-import ProfileInfo from './Info/ProfileInfo';
+import Profile from './Info/ProfileInfo';
 import { connect } from 'react-redux';
 import {
 	getProfile,
@@ -13,12 +13,12 @@ import { withAuthRedirect } from '../../../../hoc/AuthHoc';
 let ProfileInfoContainer = (props) => {
 	let userId = props.match.params.userId;
 	if (!userId) {
-		userId = 7540;
+		userId = props.id;
 	}
 	useEffect(() => props.getProfile(userId), [userId]);
 	useEffect(() => props.getStatus(userId), [userId]);
 
-	return <ProfileInfo {...props} />;
+	return <Profile {...props} isOwner={props.match.params.userId} />;
 };
 
 let mapStateToProps = (state) => {
@@ -26,6 +26,7 @@ let mapStateToProps = (state) => {
 		profile: state.profile.profile,
 		isFetching: state.profile.isFetching,
 		status: state.profile.status,
+		id: state.auth.id,
 	};
 };
 
