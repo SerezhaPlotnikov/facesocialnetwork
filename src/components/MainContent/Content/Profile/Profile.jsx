@@ -4,6 +4,7 @@ import {
 	getProfile,
 	getStatus,
 	updateStatus,
+	updateProfile,
 } from '../../../../redux/profile_reducer';
 import { withRouter } from 'react-router-dom';
 import React, { useEffect } from 'react';
@@ -18,7 +19,7 @@ let ProfileInfoContainer = (props) => {
 	useEffect(() => props.getProfile(userId), [userId]);
 	useEffect(() => props.getStatus(userId), [userId]);
 
-	return <Profile {...props} isOwner={props.match.params.userId} />;
+	return <Profile {...props} isOwner={!props.match.params.userId} />;
 };
 
 let mapStateToProps = (state) => {
@@ -35,6 +36,7 @@ export default compose(
 		getProfile,
 		getStatus,
 		updateStatus,
+		updateProfile,
 	}),
 	withRouter,
 	withAuthRedirect,

@@ -3,6 +3,7 @@ import { InfoBox, PhotoUsers } from './ProfileInfoStyled';
 import UsersPhoto from '../../../../../assets/userphoto.png';
 import Preloader from '../../../../common/Preloader/Preloader';
 import { Field, reduxForm } from 'redux-form';
+import { Link } from 'react-router-dom';
 
 const Profile = (props) => {
 	const { profile, isOwner } = props;
@@ -19,9 +20,9 @@ const Profile = (props) => {
 	let onStatusChange = (e) => {
 		setStatus(e.target.value);
 	};
-	const onSubmit = (formData) => {
-		console.log(formData);
-		// props.updateProfile(formData);
+	const onSubmit = (profile) => {
+		props.updateProfile(profile);
+		setEditProfile(false);
 	};
 	if (!profile) {
 		return <Preloader />;
@@ -37,7 +38,7 @@ const Profile = (props) => {
 			<div>
 				{!editStatus ? (
 					<div onDoubleClick={() => setEditStatus(true)}>
-						{status !== null ? status : 'Add status'}
+						{status ? status : 'Add status'}
 					</div>
 				) : (
 					<div>
@@ -50,13 +51,19 @@ const Profile = (props) => {
 					</div>
 				)}
 			</div>
-			{!isOwner && !editProfile ? (
-				<div>
-					<button onClick={() => setEditProfile(true)}>Edit Profile</button>
-					<UserInfo {...props} />
-				</div>
+			{isOwner && !editProfile ? (
+				<button onClick={() => setEditProfile(true)}>Edit Profile</button>
 			) : (
-				<EditProfileReduxForm onSubmit={onSubmit} />
+				<div></div> //костяль
+			)}
+			{!editProfile ? (
+				<UserInfo {...props} />
+			) : (
+				<EditProfileReduxForm
+					initialValues={profile}
+					profile={profile}
+					onSubmit={onSubmit}
+				/>
 			)}
 		</InfoBox>
 	);
@@ -66,25 +73,67 @@ const UserInfo = (props) => {
 	const { profile } = props;
 	return (
 		<div>
-			<div>{profile.aboutMe}</div>
-			<div>{profile.userId}</div>
-			<div>{profile.lookingForAJob}</div>
-			<div>{profile.lookingForAJobDescription}</div>
-			<div>{profile.fullName}</div>
-			<div>{profile.contacts.github}</div>
-			<div>{profile.contacts.vk}</div>
-			<div>{profile.contacts.facebook}</div>
-			<div>{profile.contacts.instagram}</div>
-			<div>{profile.contacts.twitter}</div>
-			<div>{profile.contacts.website}</div>
-			<div>{profile.contacts.youtube}</div>
-			<div>{profile.contacts.mainLink}</div>
+			{/* {Object.keys(profile).map((key) => {
+				return <div>{key}</div>;
+			})} */}
+			<div>
+				<b>About me: </b>
+				{profile.aboutMe}
+			</div>
+			<div>
+				<b>User Id: </b>
+				{profile.userId}
+			</div>
+			<div>
+				<b>Looking for a job: </b>
+				{profile.lookingForAJob}
+			</div>
+			<div>
+				<b>Description: </b>
+				{profile.lookingForAJobDescription}
+			</div>
+			<div>
+				<b>Full name: </b>
+				{profile.fullName}
+			</div>
+			<div>
+				<b>GitHub: </b>
+				{profile.contacts.github}
+			</div>
+			<div>
+				<b>Vk: </b>
+				{profile.contacts.vk}
+			</div>
+			<div>
+				<b>Facebook: </b>
+				{profile.contacts.facebook}
+			</div>
+			<div>
+				<b>Insta: </b>
+				{profile.contacts.instagram}
+			</div>
+			<div>
+				<b>Twitter: </b>
+				{profile.contacts.twitter}
+			</div>
+			<div>
+				<b>Website: </b>
+				{profile.contacts.website}
+			</div>
+			<div>
+				<b>Youtube: </b>
+				{profile.contacts.youtube}
+			</div>
+			<div>
+				<b>mainLink: </b>
+				{profile.contacts.mainLink}
+			</div>
 		</div>
 	);
 };
 
 const ProfileEditer = (props) => {
-	const { handleSubmit } = props;
+	const { handleSubmit, profile } = props;
 	return (
 		<div>
 			<form onSubmit={handleSubmit}>
@@ -103,10 +152,24 @@ const ProfileEditer = (props) => {
 				/>
 				<Field
 					component='input'
-					name='lookingForAJob'
+					name='aboutMe'
 					type='text'
-					placeholder='Full name'
+					placeholder='About Me'
 				/>
+				<div>
+					<b>Contacts: </b>
+					{Object.keys(profile.contacts).map((key) => {
+						return (
+							<Field
+								component='input'
+								name={'contacts.' + key}
+								type='text'
+								placeholder={key}
+							/>
+						);
+					})}
+				</div>
+
 				<button>Update profile</button>
 			</form>
 		</div>

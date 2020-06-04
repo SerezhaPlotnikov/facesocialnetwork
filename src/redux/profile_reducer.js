@@ -1,4 +1,5 @@
 import { profileAPI } from '../api/api';
+import { setUserData } from './login_reducer';
 
 const SET_USERS_PROFILE = 'SET_USERS_PROFILE';
 const TOOGLE_IS_FETCHING = 'TOOGLE_IS_FETCHING';
@@ -7,7 +8,7 @@ const SET_STATUS = 'SET_STATUS';
 let initial = {
 	profile: null,
 	isFetching: true,
-	status: '',
+	status: null,
 };
 const profileReducer = (state = initial, action) => {
 	switch (action.type) {
@@ -49,5 +50,13 @@ export const updateStatus = (status) => (dispatch) => {
 			dispatch(setStatus(status));
 		}
 	});
+};
+export const updateProfile = (profile) => async (dispatch, setUserData) => {
+	const userId = setUserData().auth.id;
+	const response = await profileAPI.updateProfile(profile);
+	if (response.data.resultCode === 0) {
+		dispatch(setUsersProfile(profile));
+		dispatch(getProfile(userId));
+	}
 };
 export default profileReducer;
