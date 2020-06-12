@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { connect } from 'react-redux';
 import { LogoutAuth } from '../../../../redux/login_reducer';
 import { Link } from 'react-router-dom';
@@ -6,12 +6,15 @@ import { compose } from 'redux';
 import { LogBox } from './LoginStyled';
 
 const LogContainer = (props) => {
+	const email = useMemo(() => {
+		return <LogBox>{props.email}</LogBox>;
+	}, [props.email]);
 	if (!props.isAuth) {
 		return <Link to='/login'>Login</Link>;
 	}
 	return (
 		<LogBox>
-			{props.email}
+			{email}
 			<button
 				onClick={() => {
 					props.LogoutAuth();

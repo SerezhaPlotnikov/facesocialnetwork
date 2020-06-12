@@ -22,7 +22,6 @@ export let setUserData = (id, email, login, isAuth) => ({
 	payload: { id, email, login, isAuth },
 });
 
-// Thunk делает запрос на сервер и передает данные id email login в state
 export const setAuth = () => async (dispatch) => {
 	const response = await authAPI.getAuth();
 	if (response.data.resultCode === 0) {
@@ -39,7 +38,7 @@ export const LoginAuth = (email, password, rememberMe) => async (dispatch) => {
 export const LogoutAuth = () => async (dispatch) => {
 	const response = await authAPI.logoutAuth();
 	if (response.data.resultCode === 0) {
-		dispatch(setAuth(null, null, null, false));
+		dispatch(setUserData(null, null, null, false));
 	}
 };
 
