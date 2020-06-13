@@ -16,15 +16,15 @@ const Info = (props) => {
 	return (
 		<InfoBox>
 			<InfoBox>{props.isFetching ? <Preloader /> : null}</InfoBox>
-			{/* {pages.map((p, ind) => {
+			{pages.map((p, ind) => {
 				return (
 					<div key={ind} onClick={() => onChangePage(p)}>
 						{p}
 					</div>
 				);
-			})} */}
-			{props.users.map((u) => (
-				<InfoBox kay={u}>
+			})}
+			{props.users.map((u, ind) => (
+				<InfoBox key={ind}>
 					<Link to={`/profile/${u.id}`}>
 						<PhotoUsers
 							src={u.photos.small != null ? u.photos.small : UsersPhoto}

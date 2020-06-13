@@ -158,13 +158,14 @@ const ProfileEditer = (props) => {
 				/>
 				<div>
 					<b>Contacts: </b>
-					{Object.keys(profile.contacts).map((key) => {
+					{Object.keys(profile.contacts).map((k, ind) => {
 						return (
 							<Field
+								key={ind}
 								component='input'
-								name={'contacts.' + key}
+								name={'contacts.' + k}
 								type='text'
-								placeholder={key}
+								placeholder={k}
 							/>
 						);
 					})}
