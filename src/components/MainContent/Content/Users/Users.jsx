@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { Component } from 'react';
 import Info from './Info/Info';
 import { connect } from 'react-redux';
 import {
@@ -10,12 +10,20 @@ import {
 import { withAuthRedirect } from '../../../../hoc/AuthHoc';
 import { compose } from 'redux';
 
-const InfoContainer = (props) => {
-	useEffect(() => {
-		props.getUsers(props.page, props.count);
-	}, []);
-	return <Info {...props} />;
-};
+class InfoContainer extends Component {
+	componentDidMount() {
+		this.props.getUsers(this.props.page, this.props.count);
+	}
+	render() {
+		return <Info {...this.props} />;
+	}
+}
+// const InfoContainer = (props) => {
+// 	useEffect(() => {
+// 		props.getUsers(props.page, props.count);
+// 	}, []);
+// 	return <Info {...props} />;
+// };
 
 let mapStateToProps = (state) => ({
 	users: state.users.users,

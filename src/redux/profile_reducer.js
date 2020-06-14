@@ -1,5 +1,4 @@
 import { profileAPI } from '../api/api';
-import { setUserData } from './login_reducer';
 
 const SET_USERS_PROFILE = 'SET_USERS_PROFILE';
 const TOOGLE_IS_FETCHING = 'TOOGLE_IS_FETCHING';

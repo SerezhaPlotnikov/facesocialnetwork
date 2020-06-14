@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import Header from './components/Header/Header';
 import MainContent from './components/MainContent/MainContent';
-import AppContent from './AppStyled';
+import { GlobalStyles } from './AppStyled';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { initialApp } from './redux/app_reducer';
@@ -15,10 +15,11 @@ const App = (props) => {
 		return <Preloader />;
 	}
 	return (
-		<AppContent>
+		<>
+			<GlobalStyles />
 			<Header />
 			<MainContent />
-		</AppContent>
+		</>
 	);
 };
 
