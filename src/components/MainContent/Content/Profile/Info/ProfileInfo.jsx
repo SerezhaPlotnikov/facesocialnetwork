@@ -3,7 +3,6 @@ import { InfoBox, PhotoUsers } from './ProfileInfoStyled';
 import UsersPhoto from '../../../../../assets/userphoto.png';
 import Preloader from '../../../../common/Preloader/Preloader';
 import { Field, reduxForm } from 'redux-form';
-import { Link } from 'react-router-dom';
 
 const Profile = (props) => {
 	const { profile, isOwner } = props;
