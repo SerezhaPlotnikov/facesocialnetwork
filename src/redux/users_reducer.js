@@ -96,17 +96,14 @@ export const Unfollow = (id) => async (dispatch) => {
 		dispatch(unfollow(id));
 	}
 	dispatch(setIsFollowing(false, id));
-	dispatch(getUsers());
 };
 export const Follow = (id) => async (dispatch) => {
 	dispatch(setIsFollowing(true, id));
 	const response = await userAPI.getFollow(id);
-	console.log(response);
 	if (response.data.resultCode === 0) {
 		dispatch(follow(id));
 	}
 	dispatch(setIsFollowing(false, id));
-	dispatch(getUsers());
 };
 
 export default usersReducer;
