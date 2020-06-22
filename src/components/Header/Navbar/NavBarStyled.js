@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+// import darkTheme from '../../common/dark'
 
 const Navtop = styled.div`
 	display: flex;
@@ -12,12 +13,14 @@ const Bar = styled.div`
 	justify-content: space-between;
 	align-items: center;
 	position: relative;
-	background-color: aqua;
+	color: ${(props) => props.theme.colors.textColor};
+	background: ${(props) => props.theme.colors.background};
 	a {
 		display: inline-block;
 		text-decoration: none;
 		position: relative;
 		padding: 2px;
+		color: ${(props) => props.theme.colors.textColor};
 	}
 `;
 //==

@@ -13,10 +13,18 @@ import { ThemeTest, MainTheme } from './components/common/MainTheme';
 import { ThemeProvider } from 'styled-components';
 
 const App = (props) => {
-	const stored = localStorage.getItem('isDarkMode');
+	// const stored = localStorage.getItem('isDarkMode');
+	// console.log(stored);
+	const localTheme = localStorage.getItem('isDarkMode');
+	console.log(localTheme);
 	const [isDarkMode, setIsDarkMode] = useState(
-		stored === 'true' ? true : false,
+		localTheme === 'true' ? true : false,
+		// stored === 'true' ? true : false,
 	);
+	useEffect(() => {
+		const localTheme = localStorage.getItem('isDarkMode');
+		localTheme && setIsDarkMode(localTheme);
+	}, []);
 	useEffect(() => {
 		props.initialApp();
 	}, [props]);
@@ -36,10 +44,10 @@ const App = (props) => {
 					>
 						Dark mode is {isDarkMode ? 'Enable' : ' Disable'}
 					</ThemeTest>
+					<Header />
+					<MainContent />
 				</MainTheme>
 			</ThemeProvider>
-			<Header />
-			<MainContent />
 		</>
 	);
 };
