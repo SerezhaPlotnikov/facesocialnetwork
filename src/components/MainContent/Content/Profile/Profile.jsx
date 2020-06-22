@@ -16,10 +16,7 @@ let ProfileInfoContainer = (props) => {
 	if (!userId) {
 		userId = props.id;
 	}
-	useEffect(() => {
-		props.getProfile(userId);
-		props.getProfile(userId);
-	}, [userId]);
+	useEffect(() => props.getProfile(userId), [userId]);
 	useEffect(() => props.getStatus(userId), [userId]);
 
 	return <Profile {...props} isOwner={!props.match.params.userId} />;

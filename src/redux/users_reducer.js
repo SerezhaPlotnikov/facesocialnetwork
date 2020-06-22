@@ -92,7 +92,7 @@ export const getUsers = (page, count) => (dispatch) => {
 export const Unfollow = (id) => async (dispatch) => {
 	dispatch(setIsFollowing(true, id));
 	const response = await userAPI.getUnfollow(id);
-	if (response.resultCode === 0) {
+	if (response.data.resultCode === 0) {
 		dispatch(unfollow(id));
 	}
 	dispatch(setIsFollowing(false, id));
@@ -101,7 +101,8 @@ export const Unfollow = (id) => async (dispatch) => {
 export const Follow = (id) => async (dispatch) => {
 	dispatch(setIsFollowing(true, id));
 	const response = await userAPI.getFollow(id);
-	if (response.resultCode === 0) {
+	console.log(response);
+	if (response.data.resultCode === 0) {
 		dispatch(follow(id));
 	}
 	dispatch(setIsFollowing(false, id));
