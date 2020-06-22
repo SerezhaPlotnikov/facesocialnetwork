@@ -13,18 +13,15 @@ import { ThemeTest, MainTheme } from './components/common/MainTheme';
 import { ThemeProvider } from 'styled-components';
 
 const App = (props) => {
-	// const stored = localStorage.getItem('isDarkMode');
-	// console.log(stored);
-	const localTheme = localStorage.getItem('isDarkMode');
-	console.log(localTheme);
-	const [isDarkMode, setIsDarkMode] = useState(
-		localTheme === 'true' ? true : false,
-		// stored === 'true' ? true : false,
-	);
+	const [darkMode, setDarkMode] = useState(initialThemeMode());
 	useEffect(() => {
-		const localTheme = localStorage.getItem('isDarkMode');
-		localTheme && setIsDarkMode(localTheme);
-	}, []);
+		localStorage.setItem('darkMode', JSON.stringify(darkMode));
+	}, [darkMode]);
+	function initialThemeMode() {
+		const localTheme = JSON.parse(localStorage.getItem('darkMode'));
+		return localTheme || false;
+	}
+
 	useEffect(() => {
 		props.initialApp();
 	}, [props]);
@@ -33,16 +30,16 @@ const App = (props) => {
 	}
 	return (
 		<>
-			<ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
+			<ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
 				<GlobalStyles />
 				<MainTheme>
 					<ThemeTest
 						onClick={() => {
-							setIsDarkMode(!isDarkMode);
-							localStorage.setItem('IsDarkMode', !isDarkMode);
+							setDarkMode(!darkMode);
+							localStorage.setItem('darkMode', !darkMode);
 						}}
 					>
-						Dark mode is {isDarkMode ? 'Enable' : ' Disable'}
+						Dark mode is {darkMode ? 'Enable' : ' Disable'}
 					</ThemeTest>
 					<Header />
 					<MainContent />
