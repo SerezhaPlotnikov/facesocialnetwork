@@ -47,8 +47,3 @@ const Input = styled.div`
 export { LeftBarStyle, Logo, Input, Navtop };
 
 export default Bar;
-
-export const ThemeTest = styled.button`
-	background: ${(props) => props.theme.colors.buttonBackground};
-	color: ${(props) => props.theme.colors.buttonColor};
-`;
