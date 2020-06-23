@@ -14,6 +14,8 @@ body {
   position: relative;
   overflow: hidden;
   margin: 0 auto;
+  background:${(props) => props.theme.colors.background};
+  color:${(props) => props.theme.colors.textColor}
 }
 `;
 

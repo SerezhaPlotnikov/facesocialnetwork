@@ -14,13 +14,20 @@ import { ThemeProvider } from 'styled-components';
 
 const App = (props) => {
 	const [darkMode, setDarkMode] = useState(initialThemeMode());
+
 	useEffect(() => {
 		localStorage.setItem('darkMode', JSON.stringify(darkMode));
 	}, [darkMode]);
+
 	function initialThemeMode() {
 		const localTheme = JSON.parse(localStorage.getItem('darkMode'));
 		return localTheme || false;
 	}
+
+	const ToggleTheme = () => {
+		setDarkMode(!darkMode);
+		localStorage.setItem('darkMode', !darkMode);
+	};
 
 	useEffect(() => {
 		props.initialApp();
@@ -32,18 +39,9 @@ const App = (props) => {
 		<>
 			<ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
 				<GlobalStyles />
-				<MainTheme>
-					<ThemeTest
-						onClick={() => {
-							setDarkMode(!darkMode);
-							localStorage.setItem('darkMode', !darkMode);
-						}}
-					>
-						Dark mode is {darkMode ? 'Enable' : ' Disable'}
-					</ThemeTest>
-					<Header />
-					<MainContent />
-				</MainTheme>
+
+				<Header toggle={ToggleTheme} />
+				<MainContent />
 			</ThemeProvider>
 		</>
 	);
