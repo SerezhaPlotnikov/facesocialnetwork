@@ -4,7 +4,10 @@ import Bar, { Input, LeftBarStyle, Logo, Navtop } from './NavBarStyled';
 import { ReactComponent as LogoImg } from '../../../assets/lgfb.svg';
 import LoginContainer from './Login/LoginContainer';
 
-const Navbar = () => {
+import { ThemeTest } from '../../common/MainTheme';
+import { useContext } from 'react';
+
+const Navbar = (props) => {
 	return (
 		<Navtop>
 			<LeftBarStyle>
@@ -26,7 +29,7 @@ const Navbar = () => {
 				<Link to='/message'>Message</Link>
 			</Bar>
 			<Bar>
-				{/*<example> */}
+				<ThemeTest onClick={props.toggle}>Theme</ThemeTest>
 				<LoginContainer />
 			</Bar>
 		</Navtop>

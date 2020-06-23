@@ -71,10 +71,18 @@ const Profile = (props) => {
 const UserInfo = (props) => {
 	const { profile } = props;
 	return (
+		// <>
+		// 	{Object.keys(profile.contacts)
+		// 		.map((key, value, ind) => {
+		// 			return (
+		// 				<div key={ind}>
+		// 					<b>{key} : </b>
+		// 					{value}
+		// 				</div>
+		// 			);
+		// 		})}
+		// </>
 		<div>
-			{/* {Object.keys(profile).map((key) => {
-				return <div>{key}</div>;
-			})} */}
 			<div>
 				<b>About me: </b>
 				{profile.aboutMe}
