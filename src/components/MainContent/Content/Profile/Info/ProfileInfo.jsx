@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { InfoBox, PhotoUsers } from './ProfileInfoStyled';
+import { InfoBox, PhotoUsers, InfoContainer } from './ProfileInfoStyled';
 import UsersPhoto from '../../../../../assets/userphoto.png';
 import Preloader from '../../../../common/Preloader/Preloader';
 import { Field, reduxForm } from 'redux-form';
@@ -27,7 +27,7 @@ const Profile = (props) => {
 		return <Preloader />;
 	}
 	return (
-		<InfoBox>
+		<InfoContainer>
 			<div>
 				<PhotoUsers
 					src={profile.photos.small != null ? profile.photos.small : UsersPhoto}
@@ -64,25 +64,14 @@ const Profile = (props) => {
 					onSubmit={onSubmit}
 				/>
 			)}
-		</InfoBox>
+		</InfoContainer>
 	);
 };
 
 const UserInfo = (props) => {
 	const { profile } = props;
 	return (
-		// <>
-		// 	{Object.keys(profile.contacts)
-		// 		.map((key, value, ind) => {
-		// 			return (
-		// 				<div key={ind}>
-		// 					<b>{key} : </b>
-		// 					{value}
-		// 				</div>
-		// 			);
-		// 		})}
-		// </>
-		<div>
+		<InfoBox>
 			<div>
 				<b>About me: </b>
 				{profile.aboutMe}
@@ -135,7 +124,7 @@ const UserInfo = (props) => {
 				<b>mainLink: </b>
 				{profile.contacts.mainLink}
 			</div>
-		</div>
+		</InfoBox>
 	);
 };
 

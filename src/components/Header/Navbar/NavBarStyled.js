@@ -6,6 +6,7 @@ const Navtop = styled.div`
 	justify-content: space-around;
 	align-items: center;
 	width: 100%;
+	border-bottom: 1px solid ${(props) => props.theme.colors.cardBackground};
 `;
 
 const Bar = styled.div`
@@ -19,7 +20,7 @@ const Bar = styled.div`
 		display: inline-block;
 		text-decoration: none;
 		position: relative;
-		padding: 2px;
+		padding: 2px 5px;
 		color: ${(props) => props.theme.colors.textColor};
 	}
 `;
