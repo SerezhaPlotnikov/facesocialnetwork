@@ -7,6 +7,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.19.2",
+    "prefix": "^1.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
@@ -16,6 +17,10 @@
     "redux-form": "^8.3.5",
     "redux-thunk": "^2.3.0",
     "styled-components": "^5.1.0"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "jsxBracketSameLine": true
   },
   "scripts": {
     "start": "react-scripts start",
@@ -37,5 +42,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "prettier": "2.0.5"
   }
 }

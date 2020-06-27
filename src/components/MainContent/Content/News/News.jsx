@@ -1,12 +1,12 @@
-import InputPost from "./InputPost/InputPost";
-import {addPost, updateNewPostText} from "../../../../redux/posts_reducer";
-import {connect} from "react-redux";
+import InputPost from './InputPost/InputPost';
+import { addPost, updateNewPostText } from '../../../../redux/posts_reducer';
+import { connect } from 'react-redux';
 
-let mapStateToProps = state => {
-    return {
-        posts: state.news.posts,
-        newPostText: state.news.newPostText
-    };
+let mapStateToProps = (state) => {
+  return {
+    posts: state.news.posts,
+    newPostText: state.news.newPostText,
+  };
 };
 // let mapDispatchToProps = dispatch => {
 //   return {
@@ -18,8 +18,8 @@ let mapStateToProps = state => {
 //     }
 //   };
 // };
-const News = connect(mapStateToProps, {addPost, updateNewPostText})(
-    InputPost
+const News = connect(mapStateToProps, { addPost, updateNewPostText })(
+  InputPost
 );
 
 export default News;

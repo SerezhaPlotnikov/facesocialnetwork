@@ -1,12 +1,15 @@
-import AddMessage from "./AddMessage/AddMessage";
-import {addMessage, updateNewMessageText} from "../../../../redux/dialogs_reducer";
-import {connect} from "react-redux";
+import AddMessage from './AddMessage/AddMessage';
+import {
+  addMessage,
+  updateNewMessageText,
+} from '../../../../redux/dialogs_reducer';
+import { connect } from 'react-redux';
 
-let mapStateToProps = state => {
-    return {
-        dialogs: state.dialogs.dialogs,
-        newMessageText: state.dialogs.newMessageText
-    };
+let mapStateToProps = (state) => {
+  return {
+    dialogs: state.dialogs.dialogs,
+    newMessageText: state.dialogs.newMessageText,
+  };
 };
 // const mapDispatchToProps = dispatch => {
 //   return {
@@ -18,8 +21,8 @@ let mapStateToProps = state => {
 //     }
 //   };
 // };
-const Message = connect(mapStateToProps, {addMessage, updateNewMessageText})(
-    AddMessage
+const Message = connect(mapStateToProps, { addMessage, updateNewMessageText })(
+  AddMessage
 );
 
 export default Message;

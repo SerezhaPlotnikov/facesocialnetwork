@@ -1,15 +1,15 @@
-const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
-const ADD_POST = "ADD-POST";
+const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+const ADD_POST = 'ADD-POST';
 
 let initial = {
   posts: [
-    { id: 1, message: "post" },
-    { id: 2, message: "post" },
-    { id: 3, message: "post" },
-    { id: 4, message: "post" },
-    { id: 5, message: "post" }
+    { id: 1, message: 'post' },
+    { id: 2, message: 'post' },
+    { id: 3, message: 'post' },
+    { id: 4, message: 'post' },
+    { id: 5, message: 'post' },
   ],
-  newPostText: ""
+  newPostText: '',
 };
 
 const postsReducer = (state = initial, action) => {
@@ -18,12 +18,12 @@ const postsReducer = (state = initial, action) => {
     case ADD_POST:
       let NewPost = {
         id: 67,
-        message: state.newPostText
+        message: state.newPostText,
       };
       copyState = {
         ...state,
         posts: [...state.posts, NewPost],
-        newPostText: ""
+        newPostText: '',
       };
       return copyState;
 
@@ -38,7 +38,7 @@ const postsReducer = (state = initial, action) => {
 export let addPost = () => {
   return { type: ADD_POST };
 };
-export let updateNewPostText = text => {
+export let updateNewPostText = (text) => {
   return { type: UPDATE_NEW_POST_TEXT, newText: text };
 };
 

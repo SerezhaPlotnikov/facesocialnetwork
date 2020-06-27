@@ -1,13 +1,13 @@
-import "./index.css";
-import App from "./App";
+import './index.css';
+import App from './App';
 
 //React
-import React from "react";
-import ReactDOM from "react-dom";
-import { BrowserRouter } from "react-router-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
 //Redux
-import store from "./redux/redux-store";
-import { Provider } from "react-redux";
+import store from './redux/redux-store';
+import { Provider } from 'react-redux';
 
 ReactDOM.render(
   <BrowserRouter>
@@ -15,5 +15,5 @@ ReactDOM.render(
       <App />
     </Provider>
   </BrowserRouter>,
-  document.getElementById("root")
+  document.getElementById('root')
 );

@@ -1,11 +1,11 @@
-import React from "react";
-import Content from "./MiddleContentStyled";
-import Profile from "./Profile/Profile";
-import Message from "./Message/Message";
-import News from "./News/News";
-import { Route, Switch } from "react-router-dom";
-import Users from "./Users/Users";
-import Login from "./LoginForm/LoginForm";
+import React from 'react';
+import Content from './MiddleContentStyled';
+import Profile from './Profile/Profile';
+import Message from './Message/Message';
+import News from './News/News';
+import { Route, Switch } from 'react-router-dom';
+import Users from './Users/Users';
+import Login from './LoginForm/LoginForm';
 
 const MiddleContent = () => {
   return (
@@ -24,7 +24,7 @@ const MiddleContent = () => {
           <Message />
         </Route>
         <Route path="/login">
-          <Login/>
+          <Login />
         </Route>
       </Switch>
     </Content>

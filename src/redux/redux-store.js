@@ -12,13 +12,13 @@ import authReducer from './login_reducer';
 import appReducer from './app_reducer';
 
 let reducers = combineReducers({
-	news: postsReducer,
-	dialogs: dialogsReducer,
-	users: usersReducer,
-	profile: profileReducer,
-	auth: authReducer,
-	form: formReducer,
-	app: appReducer,
+  news: postsReducer,
+  dialogs: dialogsReducer,
+  users: usersReducer,
+  profile: profileReducer,
+  auth: authReducer,
+  form: formReducer,
+  app: appReducer,
 });
 
 let store = createStore(reducers, applyMiddleware(thunk));

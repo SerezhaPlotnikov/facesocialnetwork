@@ -7,7 +7,7 @@ const Container = styled.div`
 	justify-content: center;
 	background: ${(props) => props.theme.colors.background};
 	/* border-bottom: 1px solid ${(props) =>
-		props.theme.colors.buttonBackground}; */
+    props.theme.colors.buttonBackground}; */
 	color: ${(props) => props.theme.colors.buttonBackground};
 `;
 export default Container;

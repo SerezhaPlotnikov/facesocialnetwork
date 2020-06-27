@@ -8,32 +8,32 @@ import { ThemeTest } from '../../common/MainTheme';
 import { useContext } from 'react';
 
 const Navbar = (props) => {
-	return (
-		<Navtop>
-			<LeftBarStyle>
-				<Logo>
-					<Link to='/'>
-						<LogoImg style={{ backgroundColor: 'white' }} />
-					</Link>
-				</Logo>
-				<Input>
-					<form action={`/search/top/`} method={'get'}>
-						<input placeholder={'Search'}></input>
-					</form>
-				</Input>
-			</LeftBarStyle>
-			<Bar>
-				<Link to='/'>News</Link>
-				<Link to='/profile'>Profile</Link>
-				<Link to='/users'>Users</Link>
-				<Link to='/message'>Message</Link>
-			</Bar>
-			<Bar>
-				<ThemeTest onClick={props.toggle}>Theme</ThemeTest>
-				<LoginContainer />
-			</Bar>
-		</Navtop>
-	);
+  return (
+    <Navtop>
+      <LeftBarStyle>
+        <Logo>
+          <Link to="/">
+            <LogoImg style={{ backgroundColor: 'white' }} />
+          </Link>
+        </Logo>
+        <Input>
+          <form action={`/search/top/`} method={'get'}>
+            <input placeholder={'Search'}></input>
+          </form>
+        </Input>
+      </LeftBarStyle>
+      <Bar>
+        <Link to="/">News</Link>
+        <Link to="/profile">Profile</Link>
+        <Link to="/users">Users</Link>
+        <Link to="/message">Message</Link>
+      </Bar>
+      <Bar>
+        <ThemeTest onClick={props.toggle}>Theme</ThemeTest>
+        <LoginContainer />
+      </Bar>
+    </Navtop>
+  );
 };
 
 export default Navbar;
