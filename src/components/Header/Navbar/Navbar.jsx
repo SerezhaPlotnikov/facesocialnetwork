@@ -5,7 +5,6 @@ import { ReactComponent as LogoImg } from '../../../assets/lgfb.svg';
 import LoginContainer from './Login/LoginContainer';
 
 import { ThemeTest } from '../../common/MainTheme';
-import { useContext } from 'react';
 
 const Navbar = (props) => {
   return (

@@ -2,10 +2,10 @@ import React from 'react';
 import Container from './HeaderStyled';
 import Navbar from './Navbar/Navbar';
 
-const Header = ({ toggle }) => {
+const Header = (props) => {
   return (
     <Container>
-      <Navbar toggle={toggle} />
+      <Navbar toggle={props.toggle} />
     </Container>
   );
 };

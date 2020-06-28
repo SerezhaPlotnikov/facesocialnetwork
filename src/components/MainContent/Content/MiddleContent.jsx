@@ -1,7 +1,7 @@
 import React from 'react';
 import Content from './MiddleContentStyled';
 import Profile from './Profile/Profile';
-import Message from './Message/Message';
+import MessageContainer from './Message/AddMessage';
 import News from './News/News';
 import { Route, Switch } from 'react-router-dom';
 import Users from './Users/Users';
@@ -21,7 +21,7 @@ const MiddleContent = () => {
           <Users />
         </Route>
         <Route path="/message">
-          <Message />
+          <MessageContainer />
         </Route>
         <Route path="/login">
           <Login />

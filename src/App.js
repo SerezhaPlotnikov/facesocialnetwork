@@ -38,7 +38,6 @@ const App = (props) => {
     <>
       <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
         <GlobalStyles />
-
         <Header toggle={ToggleTheme} />
         <MainContent />
       </ThemeProvider>
