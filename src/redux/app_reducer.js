@@ -36,6 +36,7 @@ export const initialApp = () => async (dispatch) => {
       dispatch(isInitializedSuccess());
     });
   } catch (error) {
+    console.error(error.message);
     dispatch(setError(error.message));
   }
 };

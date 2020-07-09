@@ -29,6 +29,9 @@ export const setAuth = () => async (dispatch) => {
     if (response.data.resultCode === 0) {
       let { id, email, login } = response.data.data;
       dispatch(setUserData(id, email, login, true));
+    } else {
+      dispatch(setError(response.data.messages));
+      throw new Error('Something went wrong');
     }
   } catch (error) {
     dispatch(setError(error.massage));
@@ -37,6 +40,7 @@ export const setAuth = () => async (dispatch) => {
 export const LoginAuth = (email, password, rememberMe) => async (dispatch) => {
   try {
     const response = await authAPI.loginAuth(email, password, rememberMe);
+    debugger;
     if (response.data.resultCode === 0) {
       dispatch(setAuth());
     } else {
@@ -44,8 +48,6 @@ export const LoginAuth = (email, password, rememberMe) => async (dispatch) => {
       throw new Error('Something went wrong');
     }
   } catch (error) {
-    debugger;
-    console.error(error);
     dispatch(setError(error.massage));
   }
 };

@@ -35,8 +35,13 @@ export let setStatus = (status) => {
 export const getProfile = (userId) => async (dispatch) => {
   try {
     const response = await profileAPI.getUsersProfile(userId);
-    dispatch(setIsFetching(false));
-    dispatch(setUsersProfile(response.data));
+    if (response.status === 200) {
+      dispatch(setIsFetching(false));
+      dispatch(setUsersProfile(response.data));
+    } else {
+      dispatch(setError(response.statusText));
+      throw new Error('Something went wrong');
+    }
   } catch (error) {
     dispatch(setError(error.massage));
   }
