@@ -1,4 +1,5 @@
 import { userAPI } from '../api/api';
+import { setError } from '../redux/app_reducer';
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -81,29 +82,40 @@ export let setIsFollowing = (isFetching, id) => {
   return { type: TOOGLE_IS_FOLLOWING, isFetching, id };
 };
 
-export const getUsers = (page, count) => (dispatch) => {
+export const getUsers = (page, count) => async (dispatch) => {
   dispatch(setIsFetching(true));
-  userAPI.getUsers(page, count).then((response) => {
+  try {
+    const response = await userAPI.getUsers(page, count);
     dispatch(setIsFetching(false));
     dispatch(setUsers(response.items));
     dispatch(setTotalCount(response.totalCount));
-  });
+  } catch (error) {
+    dispatch(setError(error.massage));
+  }
 };
 export const Unfollow = (id) => async (dispatch) => {
   dispatch(setIsFollowing(true, id));
-  const response = await userAPI.getUnfollow(id);
-  if (response.data.resultCode === 0) {
-    dispatch(unfollow(id));
+  try {
+    const response = await userAPI.getUnfollow(id);
+    if (response.data.resultCode === 0) {
+      dispatch(unfollow(id));
+    }
+    dispatch(setIsFollowing(false, id));
+  } catch (error) {
+    dispatch(setError(error.massage));
   }
-  dispatch(setIsFollowing(false, id));
 };
 export const Follow = (id) => async (dispatch) => {
   dispatch(setIsFollowing(true, id));
-  const response = await userAPI.getFollow(id);
-  if (response.data.resultCode === 0) {
-    dispatch(follow(id));
+  try {
+    const response = await userAPI.getFollow(id);
+    if (response.data.resultCode === 0) {
+      dispatch(follow(id));
+    }
+    dispatch(setIsFollowing(false, id));
+  } catch (error) {
+    dispatch(setError(error.message));
   }
-  dispatch(setIsFollowing(false, id));
 };
 
 export default usersReducer;
