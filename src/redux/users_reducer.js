@@ -97,10 +97,10 @@ export const Unfollow = (id) => async (dispatch) => {
   dispatch(setIsFollowing(true, id));
   try {
     const response = await userAPI.getUnfollow(id);
-    if (response.data.resultCode === 1) {
+    if (response.data.resultCode === 0) {
       dispatch(unfollow(id));
     } else {
-      dispatch(setError(response.data.messages + ' error'));
+      dispatch(setError(response.data.messages));
       throw new Error('Something went wrong');
     }
     dispatch(setIsFollowing(false, id));
@@ -112,12 +112,15 @@ export const Follow = (id) => async (dispatch) => {
   dispatch(setIsFollowing(true, id));
   try {
     const response = await userAPI.getFollow(id);
+    debugger;
     if (response.data.resultCode === 0) {
       dispatch(follow(id));
+    } else {
+      // dispatch(setError(response.data.messages[0]));
+      throw new Error(`Something went wrong : ${response.data.messages}`);
     }
     dispatch(setIsFollowing(false, id));
   } catch (error) {
-    console.error(error.message);
     dispatch(setError(error.message));
   }
 };
