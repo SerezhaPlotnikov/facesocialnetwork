@@ -1,8 +1,9 @@
 import { profileAPI } from '../api/api';
+import { setError } from '../redux/app_reducer';
 
-const SET_USERS_PROFILE = 'SET_USERS_PROFILE';
-const TOOGLE_IS_FETCHING = 'TOOGLE_IS_FETCHING';
-const SET_STATUS = 'SET_STATUS';
+const SET_USERS_PROFILE = 'profile/SET_USERS_PROFILE';
+const TOOGLE_IS_FETCHING = 'profile/TOOGLE_IS_FETCHING';
+const SET_STATUS = 'profile/SET_STATUS';
 
 let initial = {
   profile: null,
@@ -31,31 +32,48 @@ export let setIsFetching = (isFetching) => {
 export let setStatus = (status) => {
   return { type: SET_STATUS, status };
 };
-
-export const getProfile = (userId) => (dispatch) => {
-  profileAPI.getUsersProfile(userId).then((response) => {
-    dispatch(setIsFetching(false));
-    dispatch(setUsersProfile(response.data));
-  });
+export const getProfile = (userId) => async (dispatch) => {
+  try {
+    const response = await profileAPI.getUsersProfile(userId);
+    if (response.status === 200) {
+      dispatch(setIsFetching(false));
+      dispatch(setUsersProfile(response.data));
+    } else {
+      dispatch(setError(response.statusText));
+      throw new Error('Something went wrong');
+    }
+  } catch (error) {
+    dispatch(setError(error.massage));
+  }
 };
-export const getStatus = (userId) => (dispatch) => {
-  profileAPI.getStatus(userId).then((response) => {
+export const getStatus = (userId) => async (dispatch) => {
+  try {
+    const response = await profileAPI.getStatus(userId);
     dispatch(setStatus(response.data));
-  });
+  } catch (error) {
+    dispatch(setError(error.massage));
+  }
 };
-export const updateStatus = (status) => (dispatch) => {
-  profileAPI.updateStatus(status).then((response) => {
+export const updateStatus = (status) => async (dispatch) => {
+  try {
+    const response = await profileAPI.updateStatus(status);
     if (response.data.resultCode === 0) {
       dispatch(setStatus(status));
     }
-  });
+  } catch (error) {
+    dispatch(setError(error.massage));
+  }
 };
 export const updateProfile = (profile) => async (dispatch, setUserData) => {
-  const userId = setUserData().auth.id;
-  const response = await profileAPI.updateProfile(profile);
-  if (response.data.resultCode === 0) {
-    dispatch(setUsersProfile(profile));
-    dispatch(getProfile(userId));
+  try {
+    const userId = setUserData().auth.id;
+    const response = await profileAPI.updateProfile(profile);
+    if (response.data.resultCode === 0) {
+      dispatch(setUsersProfile(profile));
+      dispatch(getProfile(userId));
+    }
+  } catch (error) {
+    dispatch(setError(error.massage));
   }
 };
 export default profileReducer;
